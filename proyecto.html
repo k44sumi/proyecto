@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        form {
+            max-width: 400px;
+        }
+
+        input, button {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formulario de Registro</h1>
+    <form id="formulario">
+        <input type="text" id="nombre" placeholder="Nombre" required>
+        <input type="email" id="email" placeholder="Correo electrónico" required>
+        <button type="submit">Guardar</button>
+    </form>
+
+    <h2>Datos guardados:</h2>
+    <div id="datosGuardados"></div>
+
+    <script>
+    const form = document.getElementById('formulario');
+    const datosDiv = document.getElementById('datosGuardados');
+
+    function mostrarDatos() {
+      const nombre = localStorage.getItem('nombre');
+      const email = localStorage.getItem('email');
+      if (nombre && email) {
+        datosDiv.innerHTML = `<p><strong>Nombre:</strong> ${nombre}</p><p><strong>Email:</strong> ${email}</p>`;
+      } else {
+        datosDiv.innerHTML = '<p>No hay datos guardados.</p>';
+      }
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value;
+      const email = document.getElementById('email').value;
+      localStorage.setItem('nombre', nombre);
+      localStorage.setItem('email', email);
+      mostrarDatos();
+    });
+
+    mostrarDatos();
+    </script>
+</body>
+</html>
